@@ -1,27 +1,16 @@
-# Next.js SaaS Starter (minimal ZIP)
+# SaaS Starter Template (Next.js + Supabase + Prisma + Stripe)
 
-This ZIP contains a scaffold for a Next.js 14 (App Router) SaaS starter using TypeScript, Prisma schema (no migrations), NextAuth (email+Google), and Stripe stubs.
+A flexible SaaS boilerplate built with:
+- Next.js 15 (App Router)
+- Supabase (Auth & Database)
+- Prisma ORM
+- Stripe (planned)
+- NextAuth.js (planned)
 
-## Quickstart
+## Setup
 
-1. Install dependencies:
+1. Clone the repo  
+2. Copy `.env.example` → `.env` and fill in your Supabase credentials  
+3. Install dependencies:
    ```bash
    npm install
-   ```
-
-2. Create `.env` from `.env.example` and fill values.
-
-3. Generate Prisma client:
-   ```bash
-   npx prisma generate
-   ```
-
-4. Run dev server:
-   ```bash
-   npm run dev
-   ```
-
-Notes:
-- This package includes `prisma/schema.prisma` only (no migrations).
-- You still must run `npx prisma migrate dev` if you want migrations (not included).
-- Replace env values (Google keys, DB URL, Stripe keys) before using auth/stripe features.
