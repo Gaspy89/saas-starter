@@ -1,9 +1,10 @@
-import { type AuthOptions } from "next-auth";
+import NextAuth, { type AuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
+import CredentialsProvider from "next-auth/providers/credentials";
 import { SupabaseAdapter } from "@next-auth/supabase-adapter";
+import { supabaseServer } from "@/lib/supabaseServer"; // we’ll reuse this to check password
 
 export const authOptions: AuthOptions = {
-    // Use the official Supabase adapter
     adapter: SupabaseAdapter({
         url: process.env.SUPABASE_URL!,
         secret: process.env.SUPABASE_SERVICE_ROLE_KEY!,
@@ -15,11 +16,31 @@ export const authOptions: AuthOptions = {
             clientId: process.env.GOOGLE_CLIENT_ID!,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
         }),
+
+        // Email/password login through Supabase
+        CredentialsProvider({
+            name: "Credentials",
+            credentials: {
+                email: { label: "Email", type: "text" },
+                password: { label: "Password", type: "password" },
+            },
+            async authorize(credentials) {
+                if (!credentials?.email || !credentials?.password) return null;
+
+                // Sign-in with Supabase
+                const { data, error } = await supabaseServer.auth.signInWithPassword({
+                    email: credentials.email,
+                    password: credentials.password,
+                });
+
+                if (error || !data?.user) return null;
+                return { id: data.user.id, email: data.user.email };
+            },
+        }),
     ],
 
-    // Customize pages if you want
     pages: {
-        signIn: '/auth/signin',
+        signIn: "/auth/login",
     },
 
     session: {
@@ -28,10 +49,11 @@ export const authOptions: AuthOptions = {
 
     callbacks: {
         async session({ session, token }) {
-            if (token.sub) {
-                session.user.id = token.sub;
-            }
+            if (token?.sub) session.user.id = token.sub;
             return session;
         },
     },
 };
+
+const handler = NextAuth(authOptions);
+export { handler as GET, handler as POST };
