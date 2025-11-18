@@ -4,7 +4,7 @@ import { useState } from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
 
-export default function LoginPage() {
+const LoginPage = () => {
     const supabase = createClientComponentClient();
     const router = useRouter();
 
@@ -89,3 +89,5 @@ export default function LoginPage() {
         </div>
     );
 }
+
+export default LoginPage;
