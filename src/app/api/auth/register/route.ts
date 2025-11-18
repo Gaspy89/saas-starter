@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { supabaseServer } from "@/lib/supabaseServer";
 
 export const POST = async (req: NextRequest) => {
-  console.log(req);
   try {
     // Parse body safely
     const body = await req
