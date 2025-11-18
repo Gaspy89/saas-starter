@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabaseServer } from '@/lib/supabaseServer'
 
-export async function POST(req: NextRequest) {
+export const POST = async (req: NextRequest) => {
     try {
         // Parse body safely
         const body = await req.json().catch((error) => (console.log('Body parse error:', error)));
