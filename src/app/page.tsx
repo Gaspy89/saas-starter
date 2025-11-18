@@ -1,4 +1,4 @@
-export default function HomePage() {
+const HomePage = () => {
   return (
     <main className="p-8">
       <h1 className="text-3xl font-bold">Next.js SaaS Starter</h1>
@@ -6,3 +6,5 @@ export default function HomePage() {
     </main>
   )
 }
+
+export default HomePage;

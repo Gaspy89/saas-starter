@@ -1,6 +1,6 @@
 import Navbar from '@/components/ui/Navbar'
 
-export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="min-h-screen flex">
       <Navbar />
@@ -8,3 +8,5 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     </div>
   )
 }
+
+export default DashboardLayout;

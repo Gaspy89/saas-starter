@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { stripe } from '@/lib/stripe'
 
-export async function POST(req: NextRequest) {
+export const POST = async (req: NextRequest) => {
   const buf = await req.arrayBuffer()
   const body = Buffer.from(buf)
   const sig = req.headers.get('stripe-signature') || ''
